@@ -28,12 +28,20 @@ class AdminController extends Controller
 	public function indexAction()
 	{
         $login = $this->checkLogin();
+        // printa($login);
 
-        printa('admin ok');
-        printa('products::view : ' . ($login->acl->isAllowed('products', 'view') ? 1 : 0));
-        printa('products::list : ' . ($login->acl->isAllowed('products', 'list') ? 1 : 0));
-        printa('master-data::list : ' . ($login->acl->isAllowed('master-data', 'list') ? 1 : 0));
-        echo '<a href="' . _PATH_ . 'admin/logout' . '">logout</a>';
+        // printa('admin ok');
+        // printa('products::view : ' . ($login->acl->isAllowed('products', 'view') ? 1 : 0));
+        // printa('products::list : ' . ($login->acl->isAllowed('products', 'list') ? 1 : 0));
+        // printa('master-data::list : ' . ($login->acl->isAllowed('master-data', 'list') ? 1 : 0));
+        // echo '<a href="' . _PATH_ . 'admin/logout' . '">logout</a>';
+
+        $this->view('admin/index', [
+            'path' => _PATH_,
+            'login_user_id' => $login->data['user_id'],
+            'login_name' => $login->data['name'],
+            'login_email' => $login->data['email'],
+        ]);
 	}
 
 	public function loginAction()

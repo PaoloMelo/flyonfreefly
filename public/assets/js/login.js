@@ -68,14 +68,8 @@ var App = new Vue({
                         alert('Um erro inesperado aconteceu. Recarregue a tela e tente novamente.');
                         App.disabled = false;
                     },
-                    complete: function () {
-                        // App.disabled = false;
-                    },
+                    complete: function () {},
                 });
-
-                // setTimeout(function () {
-                //     App.disabled = false;
-                // }, 1000);
             }
         },
     },
