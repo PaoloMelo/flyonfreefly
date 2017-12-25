@@ -2,11 +2,25 @@
 
 class AdminController extends Controller
 {
-    private function checkLogin()
+    public function __construct()
+    {
+        $this->addVariable('path', _PATH_);
+        $login = $this->checkLogin(false);
+        if ($login) {
+            $this->addVariable('login_user_id', $login->data['user_id']);
+            $this->addVariable('login_name', $login->data['name']);
+            $this->addVariable('login_email', $login->data['email']);
+        }
+    }
+
+    private function checkLogin($redirect = true)
     {
         $LoginHelper = new LoginHelper();
         $has_login = $LoginHelper->checkLogin();
-        if (!$has_login) return $this->goToAction('login');
+        if (!$has_login) {
+            if ($redirect) return $this->goToAction('login');
+            else return false;
+        }
 
         $login_data = $LoginHelper->getData();
 
@@ -28,27 +42,21 @@ class AdminController extends Controller
 	public function indexAction()
 	{
         $login = $this->checkLogin();
-        // printa($login);
 
-        // printa('admin ok');
-        // printa('products::view : ' . ($login->acl->isAllowed('products', 'view') ? 1 : 0));
-        // printa('products::list : ' . ($login->acl->isAllowed('products', 'list') ? 1 : 0));
-        // printa('master-data::list : ' . ($login->acl->isAllowed('master-data', 'list') ? 1 : 0));
-        // echo '<a href="' . _PATH_ . 'admin/logout' . '">logout</a>';
-
-        $this->view('admin/index', [
-            'path' => _PATH_,
-            'login_user_id' => $login->data['user_id'],
-            'login_name' => $login->data['name'],
-            'login_email' => $login->data['email'],
+        $this->view([
+            'admin/template/top',
+            'admin/template/header',
+            'admin/template/menu',
+            'admin/pages/index',
+            'admin/template/footer',
+            // 'admin/template/sidebar',
+            'admin/template/bottom',
         ]);
 	}
 
 	public function loginAction()
 	{
-        $this->view('admin/login', [
-            'path' => _PATH_,
-        ]);
+        $this->view('admin/login');
 	}
 
 	public function loginPostAction()
