@@ -4,11 +4,11 @@ var App = new Vue({
         disabled: false,
         login: {
             error: false,
-            value: 'a',
+            value: '',
         },
         password: {
             error: false,
-            value: 's',
+            value: '',
         },
     },
     methods: {

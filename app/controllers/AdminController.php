@@ -10,7 +10,10 @@ class AdminController extends Controller
             $this->addVariable('login_user_id', $login->data['user_id']);
             $this->addVariable('login_name', $login->data['name']);
             $this->addVariable('login_email', $login->data['email']);
+            $this->addVariable('login_avatar', getGravatar($login->data['email'], 160, '/public/assets/theme/AdminLTE-2.4.2/dist/img/user2-160x160.jpg'));
         }
+
+        parent::__construct();
     }
 
     private function checkLogin($redirect = true)

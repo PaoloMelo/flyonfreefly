@@ -1,14 +1,4 @@
 <?php
-function printa($v, $dump = 0)
-{
-	echo '<pre>';
-	if ($dump) {
-		var_dump($v);
-	} else {
-		print_r($v);
-	}
-	echo '</pre>';
-}
 
 function __autoload($classe)
 {
@@ -23,4 +13,28 @@ function __autoload($classe)
 	}
 
 	die('Classe nao encontrada');
+}
+
+function printa($v, $dump = 0)
+{
+	echo '<pre>';
+	if ($dump) {
+		var_dump($v);
+	} else {
+		print_r($v);
+	}
+	echo '</pre>';
+}
+
+function getGravatar($email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts = array()) {
+    $url = 'https://www.gravatar.com/avatar/';
+    $url .= md5(strtolower(trim($email)));
+    $url .= "?s=$s&d=$d&r=$r";
+    if ($img) {
+        $url = '<img src="' . $url . '"';
+        foreach ($atts as $key => $val)
+            $url .= ' ' . $key . '="' . $val . '"';
+        $url .= ' />';
+    }
+    return $url;
 }
